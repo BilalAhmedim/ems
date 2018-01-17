@@ -36,10 +36,13 @@
         $esalary = $_POST['salary'];
         if($enum==0 || $enum==""){
           echo "<p>Enter Employee Number.</p>";
+          return false;
         }if(strlen($ename) < 4){
           echo "<p>Name must graterthan than 4.</p>";
+          return false;
         }if($esalary==0 || $esalary < 1000){
           echo "<p>Please Check Salary.</p>";
+          return false;
         }
         $create = "INSERT INTO records(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
         $create_result=mysqli_query($connection,$create);
@@ -47,8 +50,7 @@
           die("Query Failed".mysqli_error());
         }
       }
-      ?>
-    </div>
+      ?></div>
     </form>
   </div>
   <script type="text/javascript" src="script.js"></script>
