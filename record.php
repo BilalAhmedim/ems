@@ -1,5 +1,6 @@
 <?php
   include 'server.php';
+  $path = "employee/";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,13 +10,18 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Employee Rocords</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body{
+      background: #72bd26;
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>Employee Rocords</h1>
   </header>
   <div class="datafeed">
-    <table border=1>
+    <table>
       <tr>
         <th>Employee No.</th>
         <th>Employee Name</th>
@@ -25,11 +31,11 @@
       </tr>
       <?php while($row=mysqli_fetch_array($summary_result) ) { ?>
         <tr>
-          <td><div class="no"><?php echo $row['id'];?></div></td>
-          <td><div class="name"><?php echo $row['name'];?></div></td>
-          <td><div class="advance"><?php echo $row['advance'];?></div></td>
-          <td><div class="expenses"><?php echo $row['expenses'];?></div></td>
-          <td><div class="basic_salary"><?php echo $row['basic_salary'];?></div></td>
+          <td><div class="no"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['id']?></a></div></td>
+          <td><div class="name"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['name']?></a></div></td>
+          <td><div class="advance"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['advance']?></a></div></td>
+          <td><div class="expenses"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['expenses']?></a></div></td>
+          <td><div class="basic_salary"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['basic_salary']?></a></div></td>
         </tr>
       <?php } ?>
     </table>

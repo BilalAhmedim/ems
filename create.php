@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body{
-      background: #536ed2;
+      background: linear-gradient(to left, #3e5151, #decba4);
     }
   </style>
 </head>
