@@ -44,8 +44,8 @@
           echo "<p>Please Check Salary.</p>";
           return false;
         }
-        $create = "INSERT INTO records(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
-        $create_result=mysqli_query($connection,$create);
+        $create = "INSERT INTO summary(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
+        $create_result=mysqli_query($connect,$create);
         if(!$create_result){
           die("Query Failed".mysqli_error());
         }

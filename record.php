@@ -23,7 +23,7 @@
         <th>Expenses</th>
         <th>Basic Salary</th>
       </tr>
-      <?php while($row=mysqli_fetch_array($read_result)) {?>
+      <?php while($row=mysqli_fetch_array($summary_result) ) { ?>
         <tr>
           <td><div class="no"><?php echo $row['id'];?></div></td>
           <td><div class="name"><?php echo $row['name'];?></div></td>
