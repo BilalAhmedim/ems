@@ -1,5 +1,6 @@
 <?php
-  include 'server.php';
+	include 'server.php';
+	$id;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,23 +29,21 @@
     <h1>Daily Updates</h1>
   </header>
   <div class="dailyupdates">
-    <form>
-      <center>
+    <hr>
+    <form method="post" class="updateform">
+			<center>
         <label class="select" for="target">Select Employee : </label>
-        <select name="target">
+        <select name="target" value="">
         <option value="0">---Select an Option---</option>
           <?php while($row=mysqli_fetch_array($summary_result)) {?>
           <option value=<?php echo $row['id']; ?>>
             <?php
-              echo $row['id']." ".$row['name'];
-            }
+							echo $row['id']." ".$row['name'];
+						}
             ?>
           </option>
         </select>
       </center>
-    </form>
-    <hr>
-    <form method="post" class="updateform">
 			<label for="presence">Presence:</label>
 			<select name="presence">
 				<option value="1">Yes</option>
@@ -55,11 +54,36 @@
 			<label for="timeout">Time Out:</label>
 			<input type="time" name="timeout">
 			<label for="advance">Advance:</label>
-			<input type="number" name="Advance">
+			<input type="number" name="advance">
 			<label for="expenses">Expenses:</label>
 			<input type="number" name="expenses"><br>
 			<input type="submit" name="submit">
+			<label class="check">
+			<?php
+			if(isset($_POST['submit'])){
+				$presence = $_POST['presence'];
+				$timein = $_POST['timein'];
+        $timeout = $_POST['timeout'];
+				$advance = $_POST['advance'];
+				$expenses = $_POST['expenses'];
+				$id = $_POST['target'];
+        if($timein==0 || $timein==""){
+          echo "<p>Entre Entry Time.</p>";
+          return false;
+        }if($timeout==0 || $timeout==""){
+          echo "<p>Enter Exit Time.</p>";
+          return false;
+        }
+        $create = "UPDATE summary SET presence = '$presence' , time_in = '$timein', time_out = '$timeout' , advance = '$advance' , expenses ='$expenses' WHERE id = '$id'";
+        $create_result=mysqli_query($connect,$create);
+        if(!$create_result){
+          die("Query Failed".mysqli_error());
+        }
+			}
+			?>
+			</label>
     </form>
   </div>
+	<script src="script.js"></script>
 </body>
 </html>
