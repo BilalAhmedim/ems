@@ -44,10 +44,35 @@
           echo "<p>Please Check Salary.</p>";
           return false;
         }
-        $create = "INSERT INTO summary(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
-        $create_result=mysqli_query($connect,$create);
+        $table = "CREATE TABLE ". $ename ."(
+          `no` int(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+          `id` int(2) NOT NULL,
+          `name` varchar(100) NOT NULL,
+          `days` int(2) NOT NULL,
+          `presence` int(2) NOT NULL,
+          `time_in` time NOT NULL,
+          `time_out` time NOT NULL,
+          `total_time` time NOT NULL,
+          `duty_period` float NOT NULL,
+          `self_hollyday` int(2) NOT NULL,
+          `hollyday_cut` int(5) NOT NULL,
+          `total_underover_time` int(5) NOT NULL,
+          `per_hour` float NOT NULL,
+          `ou_rs` int(5) NOT NULL,
+          `advance` int(7) NOT NULL,
+          `expenses` int(5) NOT NULL,
+          `basic_salary` int(5) NOT NULL,
+          `pay_salary_month` int(5) NOT NULL,
+          `pay_by_hour_day` int(4) NOT NULL
+        )";
+        $create_table = mysqli_query($connect,$table);
+        $insert = "INSERT INTO ". $ename."(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
+        $create_result=mysqli_query($connect,$insert);
+        if(!$create_table){
+          die("Query Failed".mysqli_error($create_table));
+        }
         if(!$create_result){
-          die("Query Failed".mysqli_error());
+          die("Query Failed".mysqli_error($create_result));
         }
       }
       ?></div>

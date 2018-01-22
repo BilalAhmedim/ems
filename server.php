@@ -4,6 +4,6 @@
   $summary = "SELECT * FROM summary";
   $summary_result = mysqli_query($connect, $summary);
   if(!$connect){
-    echo "Connection failed";
+    die("Unable ot Connect ".$connect);
   }
 ?>

@@ -23,6 +23,9 @@
       border-style: solid;
     }
   </style>
+  <script>
+    var opt;
+  </script>
 </head>
 <body>
   <header>
@@ -30,10 +33,10 @@
   </header>
   <div class="dailyupdates">
     <hr>
-    <form method="post" class="updateform">
+    <form method="post" action="record.php" class="updateform">
 			<center>
         <label class="select" for="target">Select Employee : </label>
-        <select name="target" value="">
+        <select name="target">
         <option value="0">---Select an Option---</option>
           <?php while($row=mysqli_fetch_array($summary_result)) {?>
           <option value=<?php echo $row['id']; ?>>
