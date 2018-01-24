@@ -69,10 +69,15 @@
         $insert = "INSERT INTO ". $ename."(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
         $create_result=mysqli_query($connect,$insert);
         if(!$create_table){
-          die("Query Failed".mysqli_error($create_table));
+          die("Query Failed ".mysqli_error($create_table));
         }
         if(!$create_result){
-          die("Query Failed".mysqli_error($create_result));
+          die("Query Failed ".mysqli_error($create_result));
+        }
+        $summarytable = "INSERT INTO summary(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
+        $summaryquery = mysqli_query($connect,$summarytable);
+        if(!$summaryquery){
+          die("Query Failed ".mysqli_error($summaryquery));
         }
       }
       ?></div>
