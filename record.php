@@ -31,11 +31,11 @@
       </tr>
       <?php while($row=mysqli_fetch_array($summary_result) ) { ?>
         <tr>
-          <td><div class="no"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['id']?></a></div></td>
-          <td><div class="name"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['name']?></a></div></td>
-          <td><div class="advance"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['advance']?></a></div></td>
-          <td><div class="expenses"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['expenses']?></a></div></td>
-          <td><div class="basic_salary"><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['basic_salary']?></a></div></td>
+          <td><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['id']?></a></td>
+          <td><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['name']?></a></td>
+          <td><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['advance']?></a></td>
+          <td><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['expenses']?></a></td>
+          <td><a href=<?php echo $path.$row['name'].".php"?>><?php echo $row['basic_salary']?></a></td>
         </tr>
       <?php } ?>
     </table>
