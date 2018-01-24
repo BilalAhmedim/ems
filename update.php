@@ -1,6 +1,7 @@
 <?php
 	include 'server.php';
-	$id;
+  $id;
+  $name;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +34,7 @@
   </header>
   <div class="dailyupdates">
     <hr>
-    <form method="post" action="record.php" class="updateform">
+    <form method="post" class="updateform">
 			<center>
         <label class="select" for="target">Select Employee : </label>
         <select name="target">
@@ -41,7 +42,7 @@
           <?php while($row=mysqli_fetch_array($summary_result)) {?>
           <option value=<?php echo $row['id']; ?>>
             <?php
-							echo $row['id']." ".$row['name'];
+              echo $row['id']." ".$row['name'];
 						}
             ?>
           </option>
@@ -69,7 +70,10 @@
         $timeout = $_POST['timeout'];
 				$advance = $_POST['advance'];
 				$expenses = $_POST['expenses'];
-				$id = $_POST['target'];
+        $id = $_POST['target'];
+        $getname = "SELECT name FROM summary WHERE id = $id";
+        $newname = mysqli_query($connect,$getname);
+        $name = mysqli_fetch_array($newname);
         if($timein==0 || $timein==""){
           echo "<p>Entre Entry Time.</p>";
           return false;
@@ -77,10 +81,15 @@
           echo "<p>Enter Exit Time.</p>";
           return false;
         }
-        $create = "UPDATE summary SET presence = '$presence' , time_in = '$timein', time_out = '$timeout' , advance = '$advance' , expenses ='$expenses' WHERE id = '$id'";
+        $create = "UPDATE summary SET presence = '$presence' , advance = '$advance' , expenses ='$expenses' WHERE id = $id";
         $create_result=mysqli_query($connect,$create);
         if(!$create_result){
-          die("Query Failed".mysqli_error());
+          die("Query Failed".mysqli_error($connect));
+        }
+        $ontable="INSERT INTO ".$name['name']."(presence,time_in,time_out,advance,expenses) VALUE('$presence','$timein','$timeout','$advance','$expenses')";
+        $insert = mysqli_query($connect,$ontable);
+        if( !$insert){
+          die("Query Failed".mysqli_error($connect));
         }
 			}
 			?>
