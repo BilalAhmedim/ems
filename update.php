@@ -71,25 +71,44 @@
 				$advance = $_POST['advance'];
 				$expenses = $_POST['expenses'];
         $id = $_POST['target'];
+        $total = ( strtotime($timeout) - strtotime($timein) )-3600;
+        $hours = floor($total / 3600);
+        $mins = floor($total / 60 % 60);
+        $secs = floor($total % 60);
+        $totaltime;
         $getname = "SELECT name FROM summary WHERE id = $id";
         $newname = mysqli_query($connect,$getname);
         $name = mysqli_fetch_array($newname);
-        if($timein==0 || $timein==""){
-          echo "<p>Entre Entry Time.</p>";
-          return false;
-        }if($timeout==0 || $timeout==""){
-          echo "<p>Enter Exit Time.</p>";
-          return false;
-        }
-        $create = "UPDATE summary SET presence = '$presence' , advance = '$advance' , expenses ='$expenses' WHERE id = $id";
-        $create_result=mysqli_query($connect,$create);
-        if(!$create_result){
-          die("Query Failed".mysqli_error($connect));
-        }
-        $ontable="INSERT INTO ".$name['name']."(presence,time_in,time_out,advance,expenses) VALUE('$presence','$timein','$timeout','$advance','$expenses')";
-        $insert = mysqli_query($connect,$ontable);
-        if( !$insert){
-          die("Query Failed".mysqli_error($connect));
+        if($presence == "yes"){
+          $totaltime = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+          if($timein==0 || $timein==""){
+            echo "<p>Entre Entry Time.</p>";
+            exit;
+          }if($timeout==0 || $timeout==""){
+            echo "<p>Enter Exit Time.</p>";
+            exit;
+          }
+          $create = "UPDATE summary SET presence = '$presence' , advance = '$advance' , expenses ='$expenses' WHERE id = $id";
+          $create_result=mysqli_query($connect,$create);
+          if(!$create_result){
+            die("Query Failed".mysqli_error($connect));
+          }
+          $ontable="INSERT INTO ".$name['name']."(presence,time_in,time_out,total_time,advance,expenses) VALUE('$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+          $insert = mysqli_query($connect,$ontable);
+          if( !$insert){
+            die("Query Failed".mysqli_error($connect));
+          }
+        }else{
+          $create = "UPDATE summary SET presence = '$presence' WHERE id = $id";
+          $create_result=mysqli_query($connect,$create);
+          if(!$create_result){
+            die("Query Failed".mysqli_error($connect));
+          }
+          $ontable="INSERT INTO ".$name['name']."(presence) VALUE('$presence')";
+          $insert = mysqli_query($connect,$ontable);
+          if( !$insert){
+            die("Query Failed".mysqli_error($connect));
+          }
         }
 			}
 			?>
