@@ -73,6 +73,10 @@ hr {
           $getname = "SELECT name FROM summary WHERE id = $id";
           $newname = mysqli_query($connect, $getname);
           $name = mysqli_fetch_array($newname);
+          $getsalary = "SELECT basic_salary FROM summary WHERE id = $id";
+          $newsalary = mysqli_query($connect, $getsalary);
+          $salary = mysqli_fetch_array($newsalary);
+          $day_cut = $salary['basic_salary']/30;
           if ($id == 0) {
             echo "<p>Please Select Employee First.</p><br>";
             exit();
@@ -87,12 +91,14 @@ hr {
               echo "<p>Enter Exit Time.</p><br>";
               exit();
             }
-            $create = "UPDATE summary SET presence = '$presence' , advance = '$advance' , expenses ='$expenses' WHERE id = $id";
+            $duty_period = $hours.".".$mins;
+            $create = "UPDATE summary SET presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
-            }
-            $ontable = "INSERT INTO " . $name['name'] . "(presence,time_in,time_out,total_time,advance,expenses) VALUE('$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+            }$empname=$name['name'];
+            $ontable = "INSERT INTO " . $name['name'] . "(hollyday_cut,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
+            VALUE('$day_cut','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
@@ -100,6 +106,7 @@ hr {
           }
           else {
             $create = "UPDATE summary SET presence = '$presence' WHERE id = $id";
+
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
