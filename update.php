@@ -38,13 +38,12 @@ hr {
     <hr>
     <form method="post" class="updateform">
       <center>
-        <label class="select" for="target">Select Employee : </label> <select
-          name="target">
+        <label class="select" for="target">Select Employee : </label> <select name="target">
           <option value="0">---Select an Option---</option>
             <?php while($row=mysqli_fetch_array($summary_result)) {?>
             <option value=<?php echo $row['id']; ?>>
             <?php
-                echo $row['id'] . " " . $row['name'];
+              echo $row['id'] . " " . $row['name'];
             }
             ?>
             </option>
@@ -56,63 +55,63 @@ hr {
       </select> <label for="timein">Time In: </label> <input type="time"
         name="timein"> <label for="timeout">Time Out: </label> <input
         type="time" name="timeout"> <label for="advance">Advance: </label>
-      <input type="number" name="advance"> <label for="expenses">Expenses:
-      </label> <input type="number" name="expenses"> <br> <input
-        type="submit" name="submit"> <label class="check">
-      <?php
-    if (isset($_POST['submit'])) {
-        $presence = $_POST['presence'];
-        $timein = $_POST['timein'];
-        $timeout = $_POST['timeout'];
-        $advance = $_POST['advance'];
-        $expenses = $_POST['expenses'];
-        $id = $_POST['target'];
-        $total = (strtotime($timeout) - strtotime($timein)) - 3600;
-        $hours = floor($total / 3600);
-        $mins = floor($total / 60 % 60);
-        $secs = floor($total % 60);
-        $totaltime;
-        $getname = "SELECT name FROM summary WHERE id = $id";
-        $newname = mysqli_query($connect, $getname);
-        $name = mysqli_fetch_array($newname);
-        if ($id == 0) {
+      <input type="number" name="advance"> <label for="expenses">Expenses:</label>
+      <input type="number" name="expenses"> <br> <input type="submit" name="submit"> <label class="check">
+        <?php
+        if (isset($_POST['submit'])) {
+          $presence = $_POST['presence'];
+          $timein = $_POST['timein'];
+          $timeout = $_POST['timeout'];
+          $advance = $_POST['advance'];
+          $expenses = $_POST['expenses'];
+          $id = $_POST['target'];
+          $total = (strtotime($timeout) - strtotime($timein)) - 3600;
+          $hours = floor($total / 3600);
+          $mins = floor($total / 60 % 60);
+          $secs = floor($total % 60);
+          $totaltime;
+          $getname = "SELECT name FROM summary WHERE id = $id";
+          $newname = mysqli_query($connect, $getname);
+          $name = mysqli_fetch_array($newname);
+          if ($id == 0) {
             echo "<p>Please Select Employee First.</p><br>";
             exit();
-        }
-        if ($presence == 1) {
+          }
+          if ($presence == 1) {
             $totaltime = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
             if ($timein == 0 or $timein == " ") {
-                echo "<p>Enter Entry Time.</p><br>";
-                exit();
+              echo "<p>Enter Entry Time.</p><br>";
+              exit();
             }
             if ($timeout == 0 or $timeout == "") {
-                echo "<p>Enter Exit Time.</p><br>";
-                exit();
+              echo "<p>Enter Exit Time.</p><br>";
+              exit();
             }
             $create = "UPDATE summary SET presence = '$presence' , advance = '$advance' , expenses ='$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
-                die("Query Failed " . mysqli_error($connect));
+              die("Query Failed " . mysqli_error($connect));
             }
             $ontable = "INSERT INTO " . $name['name'] . "(presence,time_in,time_out,total_time,advance,expenses) VALUE('$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
-                die("Query Failed " . mysqli_error($connect));
+              die("Query Failed " . mysqli_error($connect));
             }
-        } else {
+          }
+          else {
             $create = "UPDATE summary SET presence = '$presence' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
-                die("Query Failed " . mysqli_error($connect));
+              die("Query Failed " . mysqli_error($connect));
             }
             $ontable = "INSERT INTO " . $name['name'] . "(presence) VALUE('$presence')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
-                die("Query Failed " . mysqli_error($connect));
+              die("Query Failed " . mysqli_error($connect));
             }
+          }
         }
-    }
-    ?>
+      ?>
       </label>
     </form>
   </div>
