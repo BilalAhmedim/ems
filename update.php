@@ -77,6 +77,7 @@ hr {
           $newsalary = mysqli_query($connect, $getsalary);
           $salary = mysqli_fetch_array($newsalary);
           $day_cut = $salary['basic_salary']/30;
+          $per_hour = $day_cut/8;
           if ($id == 0) {
             echo "<p>Please Select Employee First.</p><br>";
             exit();
@@ -97,8 +98,8 @@ hr {
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
-            $ontable = "INSERT INTO " . $name['name'] . "(hollyday_cut,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
-            VALUE('$day_cut','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+            $ontable = "INSERT INTO " . $name['name'] . "(per_hour,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
+            VALUE('$per_hour','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
@@ -106,12 +107,11 @@ hr {
           }
           else {
             $create = "UPDATE summary SET presence = '$presence' WHERE id = $id";
-
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
-            }
-            $ontable = "INSERT INTO " . $name['name'] . "(presence) VALUE('$presence')";
+            }$empname=$name['name'];
+            $ontable = "INSERT INTO " . $name['name'] . "(id,name,presence,self_hollyday,hollyday_cut) VALUE('$id','$empname','$presence','1','$day_cut')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
