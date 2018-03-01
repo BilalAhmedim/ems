@@ -82,6 +82,7 @@ hr {
           $day_query = mysqli_query($connect,"SELECT days FROM summary WHERE id = $id");
           $fetch_days = mysqli_fetch_array($day_query);
           $days = $fetch_days['days'];
+          $pay_by_hour = '';
           if ($id == 0) {
             echo "<p>Please Select Employee First.</p><br>";
             exit();
@@ -99,8 +100,17 @@ hr {
             $duty_period = $totaltime;
             $underover = $total-28800;
             $total_underover_time = $underover / 60;
+            $pay_by_hour = $total-3600;
             $create = "UPDATE summary SET days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
+            if($pay_by_hour <= 39600 ){
+              $duty = (strtotime($timeout) - strtotime($timein));
+              $newhours = floor($duty / 3600);
+              $newmins = floor($duty / 60 % 60);
+              $newsecs = floor($duty % 60);
+              $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
+              $total_underover_time = $total_underover_time + 60;
+            }
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
