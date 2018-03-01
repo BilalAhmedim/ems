@@ -98,7 +98,7 @@ hr {
             }
             $duty_period = $totaltime;
             $underover = $total-28800;
-            $total_underover_time = floor($underover / 60 % 60);
+            $total_underover_time = $underover / 60;
             $create = "UPDATE summary SET days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {

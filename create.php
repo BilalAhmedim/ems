@@ -53,7 +53,7 @@
           `time_in` time NOT NULL,
           `time_out` time NOT NULL,
           `total_time` time NOT NULL,
-          `duty_period` float NOT NULL,
+          `duty_period` time NOT NULL,
           `self_hollyday` int(2) NOT NULL,
           `hollyday_cut` int(5) NOT NULL,
           `total_underover_time` int(5) NOT NULL,
