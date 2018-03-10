@@ -46,7 +46,7 @@
         }
         $table = "CREATE TABLE ". $ename ."(
           `no` int(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-          `id` int(2) NOT NULL,
+          `id` int(3) NOT NULL,
           `name` varchar(100) NOT NULL,
           `days` int(2) NOT NULL,
           `presence` int(2) NOT NULL,
