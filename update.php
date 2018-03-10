@@ -70,15 +70,19 @@ hr {
           $mins = floor($total / 60 % 60);
           $secs = floor($total % 60);
           $totaltime;
+          //  Read Info From Database
+          // get name
           $getname = "SELECT name FROM summary WHERE id = $id";
           $newname = mysqli_query($connect, $getname);
           $name = mysqli_fetch_array($newname);
+          // get salary
           $getsalary = "SELECT basic_salary FROM summary WHERE id = $id";
           $newsalary = mysqli_query($connect, $getsalary);
           $salary = mysqli_fetch_array($newsalary);
           $day_cut = $salary['basic_salary']/30;
           $per_hour = $day_cut/8;
           $total_underover_time="";
+          // get days
           $day_query = mysqli_query($connect,"SELECT days FROM summary WHERE id = $id");
           $fetch_days = mysqli_fetch_array($day_query);
           $days = $fetch_days['days'];
@@ -108,18 +112,19 @@ hr {
               $newsecs = floor($duty % 60);
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 121;
-            }if($duty >= 39000 ){
+            }else if($duty >= 39000 ){
               $newhours = floor( $duty / 3600);
               $newmins = floor($duty / 60 % 60);
               $newsecs = floor($duty % 60);
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 60;
             }
+            $ou_rs = ($total_underover_time / 60) * $per_hour;
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
-            $ontable = "INSERT INTO " . $name['name'] . "(days,total_underover_time,per_hour,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
-            VALUE('1','$total_underover_time','$per_hour','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+            $ontable = "INSERT INTO " . $name['name'] . "(ou_rs,days,total_underover_time,per_hour,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
+            VALUE('$ou_rs','1','$total_underover_time','$per_hour','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
