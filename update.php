@@ -84,11 +84,6 @@ hr {
           $underover = $total-28800;
           $total_underover_time = $underover / 60;
           $ou_rs = ($total_underover_time / 60) * $per_hour;
-          // get all advance expenses from summary
-          $advance_expenses_query = mysqli_query($connect, "SELECT advance , expenses FROM summary WHERE id = $id");
-          $fetch = mysqli_fetch_array($advance_expenses_query);
-          $total_advance = $fetch['advance'];
-          $total_expenses = $fetch['expenses'];
           // get days
           $day_query = mysqli_query($connect,"SELECT days FROM summary WHERE id = $id");
           $fetch_days = mysqli_fetch_array($day_query);
@@ -108,8 +103,16 @@ hr {
               exit();
             }
             $duty_period = $totaltime;
-            $create = "UPDATE summary SET days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
+            $create = "UPDATE summary SET ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
+            // get all advance expenses from summary
+            $advance_expenses_query = mysqli_query($connect, "SELECT advance , expenses FROM summary WHERE id = $id");
+            $fetch = mysqli_fetch_array($advance_expenses_query);
+            $total_advance = $fetch['advance'];
+            $total_expenses = $fetch['expenses'];
+            // get time detuction
+            $time_detuction = mysqli_query($connect, "SELECT ou_rs FROM summary WHERE id = $id");
+            $td_query = mysqli_fetch_array($time_detuction);
             $duty = (strtotime($timeout) - strtotime($timein));
             $newmins = floor($duty / 60 % 60);
             $newsecs = floor($duty % 60);
@@ -131,11 +134,15 @@ hr {
               $time = $hours.".".$mins;
             }
             $pay_by_hour_day = round($time * $per_hour);
-            $pay_salary_month = $salary['basic_salary'] -( $total_advance + $total_expenses ) + $ou_rs;
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
             $salary_val=$salary['basic_salary'];
+            // get hollyday cut from summary
+            $hollyday_query = mysqli_query($connect, "SELECT hollyday_cut FROM summary WHERE id = $id");
+            $hollyday = mysqli_fetch_array($hollyday_query);
+            $hollyday_cut = $hollyday['hollyday_cut'];
+            $pay_salary_month = $salary['basic_salary'] -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query['ou_rs'];
             $ontable = "INSERT INTO " . $name['name'] . "(pay_salary_month,pay_by_hour_day,basic_salary,ou_rs,days,total_underover_time,per_hour,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
             VALUE('$pay_salary_month','$pay_by_hour_day','$salary_val','$ou_rs','1','$total_underover_time','$per_hour','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
@@ -144,9 +151,18 @@ hr {
             }
           }
           else {
-            $create = "UPDATE summary SET presence = '$presence' WHERE id = $id";
+            $create = "UPDATE summary SET hollyday_cut = hollyday_cut + '$day_cut', presence = '$presence' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
-            $pay_salary_month = $salary['basic_salary'] -( $day_cut + $total_advance + $total_expenses );
+            // get hollyday cut from summary
+            $hollyday_query = mysqli_query($connect, "SELECT hollyday_cut FROM summary WHERE id = $id");
+            $hollyday = mysqli_fetch_array($hollyday_query);
+            $hollyday_cut = $hollyday['hollyday_cut'];
+            // get all advance expenses from summary
+            $advance_expenses_query = mysqli_query($connect, "SELECT advance , expenses FROM summary WHERE id = $id");
+            $fetch = mysqli_fetch_array($advance_expenses_query);
+            $total_advance = $fetch['advance'];
+            $total_expenses = $fetch['expenses'];
+            $pay_salary_month = $salary['basic_salary'] -( $hollyday_cut + $total_advance + $total_expenses );
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
