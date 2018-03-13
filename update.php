@@ -112,21 +112,21 @@ hr {
               $newhours = floor(($duty + 3600 ) / 3600);
               $newmins = floor($duty / 60 % 60);
               $newsecs = floor($duty % 60);
-              $time = $newhours."".$newmins;
+              $time = $newhours.".".$newmins;
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 121;
             }else if($duty >= 39000 ){
               $newhours = floor( $duty / 3600);
               $newmins = floor($duty / 60 % 60);
               $newsecs = floor($duty % 60);
-              $time = $newhours."".$newmins;
+              $time = $newhours.".".$newmins;
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 60;
             }else{
               $time = $hours.".".$mins;
             }
             $ou_rs = ($total_underover_time / 60) * $per_hour;
-            $pay_by_hour_day = $time * $per_hour;
+            $pay_by_hour_day = round($time * $per_hour);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
