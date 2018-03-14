@@ -103,16 +103,11 @@ hr {
               exit();
             }
             $duty_period = $totaltime;
-            $create = "UPDATE summary SET ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
-            $create_result = mysqli_query($connect, $create);
             // get all advance expenses from summary
             $advance_expenses_query = mysqli_query($connect, "SELECT advance , expenses FROM summary WHERE id = $id");
             $fetch = mysqli_fetch_array($advance_expenses_query);
             $total_advance = $fetch['advance'];
             $total_expenses = $fetch['expenses'];
-            // get time detuction
-            $time_detuction = mysqli_query($connect, "SELECT ou_rs FROM summary WHERE id = $id");
-            $td_query = mysqli_fetch_array($time_detuction);
             $duty = (strtotime($timeout) - strtotime($timein));
             $newmins = floor($duty / 60 % 60);
             $newsecs = floor($duty % 60);
@@ -136,9 +131,16 @@ hr {
               $time = $hours.".".$mins;
             }
             $pay_by_hour_day = round($time * $per_hour);
+            //  Update data on Database
+            $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
+            $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
-            }$empname=$name['name'];
+            }
+            // get time detuction
+            $time_detuction = mysqli_query($connect, "SELECT ou_rs FROM summary WHERE id = $id");
+            $td_query = mysqli_fetch_array($time_detuction);
+            $empname=$name['name'];
             $salary_val=$salary['basic_salary'];
             // get hollyday cut from summary
             $hollyday_query = mysqli_query($connect, "SELECT hollyday_cut FROM summary WHERE id = $id");
