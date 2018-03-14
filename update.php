@@ -83,7 +83,7 @@ hr {
           $per_hour = $day_cut/8;
           $underover = $total-28800;
           $total_underover_time = $underover / 60;
-          $ou_rs = ($total_underover_time / 60) * $per_hour;
+          $ou_rs = ($total_underover_time / 60) * round($per_hour);
           // get days
           $day_query = mysqli_query($connect,"SELECT days FROM summary WHERE id = $id");
           $fetch_days = mysqli_fetch_array($day_query);
@@ -123,6 +123,7 @@ hr {
               $time = $newhours.".".$newmins;
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 121;
+              $ou_rs = ($total_underover_time / 60) * round($per_hour);
             }else if($duty >= 39000 ){
               $newhours = floor( $duty / 3600);
               $newmins = floor($duty / 60 % 60);
@@ -130,6 +131,7 @@ hr {
               $time = $newhours.".".$newmins;
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 60;
+              $ou_rs = ($total_underover_time / 60) * round($per_hour);
             }else{
               $time = $hours.".".$mins;
             }
@@ -162,7 +164,11 @@ hr {
             $fetch = mysqli_fetch_array($advance_expenses_query);
             $total_advance = $fetch['advance'];
             $total_expenses = $fetch['expenses'];
-            $pay_salary_month = $salary['basic_salary'] -( $hollyday_cut + $total_advance + $total_expenses );
+            // get time detuction
+            $time_detuction = mysqli_query($connect, "SELECT ou_rs FROM summary WHERE id = $id");
+            $td_query = mysqli_fetch_array($time_detuction);
+            // main Equation for payable amount
+            $pay_salary_month = $salary['basic_salary'] -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query['ou_rs'];
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }$empname=$name['name'];
