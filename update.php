@@ -147,7 +147,7 @@ hr {
             $hollyday = mysqli_fetch_array($hollyday_query);
             $hollyday_cut = $hollyday['hollyday_cut'];
             $pay_salary_month = $salary['basic_salary'] -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query['ou_rs'];
-            $ontable = "INSERT INTO " . $name['name'] . "(pay_salary_month,pay_by_hour_day,basic_salary,ou_rs,days,total_underover_time,per_hour,id,name,duty_period,presence,time_in,time_out,total_time,advance,expenses) 
+            $ontable = "INSERT INTO " . $name['name'] . "(pay_salary_month, pay_by_hour_day, basic_salary, ou_rs, days,total_underover_time, per_hour, id, name, duty_period, presence, time_in, time_out, total_time, advance, expenses) 
             VALUE('$pay_salary_month','$pay_by_hour_day','$salary_val','$ou_rs','1','$total_underover_time','$per_hour','$id','$empname','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
@@ -155,7 +155,7 @@ hr {
             }
           }
           else {
-            $create = "UPDATE summary SET hollyday_cut = hollyday_cut + '$day_cut', presence = '$presence' WHERE id = $id";
+            $create = "UPDATE summary SET self_hollyday = self_hollyday + '1', hollyday_cut = hollyday_cut + '$day_cut', presence = '$presence' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             // get hollyday cut from summary
             $hollyday_query = mysqli_query($connect, "SELECT hollyday_cut FROM summary WHERE id = $id");
