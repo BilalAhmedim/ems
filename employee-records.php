@@ -37,8 +37,8 @@
         <th>Basic Salary</th>
       </tr>
       <?php
-        $name = $_SESSION['name'];
-        $id = $_SESSION['id'];
+        $name = $_GET['name'];
+        $id = $_GET['id'];
         $query = "SELECT * FROM " . $name . " WHERE id = $id";
         $query_result = mysqli_query($connect, $query);
         while( $row = mysqli_fetch_array($query_result) ) { ?>

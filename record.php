@@ -40,15 +40,15 @@
       </tr>
       <?php while($row=mysqli_fetch_array($summary_result) ) { ?>
         <tr onclick="session(this.getAttribute('name'),this.getAttribute('value'))" class="send" name=<?php echo $row['name']?> value=<?php echo $row['id']?> >
-          <td><a href="#"><?php echo $row['no']?></a></td>
-          <td><a href="#"><?php echo $row['id']?></a></td>
-          <td><a href="#"><?php echo $row['name']?></a></td>
-          <td><a href="#"><?php echo $row['days']?></a></td>
-          <td><a href="#"><?php echo $row['self_hollyday']?></a></td>
-          <td><a href="#"><?php echo $row['ou_rs']?></a></td>
-          <td><a href="#"><?php echo $row['advance']?></a></td>
-          <td><a href="#"><?php echo $row['expenses']?></a></td>
-          <td><a href="#"><?php echo $row['basic_salary']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['no']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['id']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['name']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['days']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['self_hollyday']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['ou_rs']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['advance']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['expenses']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['basic_salary']?></a></td>
         </tr>
       <?php }?>
     </table>
@@ -57,22 +57,5 @@
       <input type="text" class="id" name="id">
     </form>
   </div>
-  <script>
-    var name,id;
-    function session(get_name , get_id){
-      name = get_name;
-      id = get_id;
-      var setName = document.querySelector('.name');
-      var setId = document.querySelector('.id');
-      setName.value = name;
-      setId.value = id;
-    }
-  </script>
-  <?php
-    $name = $_POST['name'];
-    $id = $_POST['id'];
-    $_SESSION['name'] = $name;
-    $_SESSION['id'] = $id;
-  ?>
 </body>
 </html>
