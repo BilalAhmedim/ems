@@ -13,8 +13,13 @@
     body{
       background: linear-gradient(to right, #c33764, #1d2671);
     }
-    input:after{
-      content: "Delete";
+    input#submit{
+      padding: 2px 30px;
+      cursor: pointer;
+      background: red;
+      border: 2px solid darkred;
+      color: #fff;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -29,6 +34,7 @@
       <th>Employee Name</th>
       <th>Advance</th>
       <th>Basic Salary</th>
+      <th>Delete Employee</th>
     </tr>
     <?php
       while($row = mysqli_fetch_array($summary_result)) {?>
@@ -37,7 +43,7 @@
       <td><?php echo $row['name'];?></td>
       <td><?php echo $row['advance'];?></td>
       <td><?php echo $row['basic_salary'];?></td>
-      <td><form method="POST"><input type="submit" name="delete" value="<?php echo $row['id']?>"></form></td>
+      <td><form method="POST"><input type="submit" id="submit" name="delete" value="<?php echo $row['id']?>" onclick="return confirm('Sure to Delete Employee');"></form></td>
     </tr>
       <?php
         $name = $row['name'];
@@ -52,6 +58,7 @@
           if(!$delqry){
             echo "Query Failed ".mysqli_error($delqry);
           }
+          header("Location: http://localhost/delete.php");
         }
       ?>
     <?php }?>

@@ -180,6 +180,7 @@ hr {
               die("Query Failed " . mysqli_error($connect));
             }
           }
+          header("Location: http://localhost/update.php");
         }
       ?>
       </label>

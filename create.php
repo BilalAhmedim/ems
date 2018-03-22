@@ -27,7 +27,7 @@
       <input type="text" class="name" name="name" placeholder="Emloyee Name">
       <label for="basicsalary">Basic Salary</label>
       <input type="number" class="basicsalary" name="salary" placeholder="Basic Salary">
-      <input type="submit" name="submit" value="submit" class="submit">
+      <input type="submit" name="submit" value="submit" class="submit" onclick="return confirm('Sure to Create Employee')">
       <div class="check">
       <?php
       if( isset($_POST['submit']) ) {
@@ -79,6 +79,7 @@
         if(!$summaryquery){
           die("Query Failed ".mysqli_error($summaryquery));
         }
+        header("Location: http://localhost/create.php");
       }
       ?></div>
     </form>

@@ -15,26 +15,29 @@
       background: #72bd26;
     }
     table{
-      width: 950px;
+      width: 100vw;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Employee Rocords</h1>
+    <h1><?php echo $_GET['name']?> Rocord</h1>
   </header>
   <div class="datafeed">
     <table>
       <tr>
-        <th>Entry No.</th>
-        <th>Employee No.</th>
-        <th>Employee Name</th>
+        <th>Emp. No.</th>
+        <th>Emp. Name</th>
         <th>Presense</th>
         <th>Absence</th>
-        <th>Time</th>
+        <th>TimeIn</th>
+        <th>TimeOut</th>
+        <th>Duty Period</th>
+        <th>Hollyday cut</th>
+        <th>Under/Over Time</th>
         <th>Advance</th>
-        <th>Expenses</th>
         <th>Basic Salary</th>
+        <th>Payable</th>
       </tr>
       <?php
         $name = $_GET['name'];
@@ -43,15 +46,18 @@
         $query_result = mysqli_query($connect, $query);
         while( $row = mysqli_fetch_array($query_result) ) { ?>
         <tr>
-          <td><?php echo $row['no']?></td>
           <td><?php echo $row['id']?></td>
           <td><?php echo $row['name']?></td>
           <td><?php echo $row['days']?></td>
           <td><?php echo $row['self_hollyday']?></td>
+          <td><?php echo $row['time_in']?></td>
+          <td><?php echo $row['time_out']?></td>
+          <td><?php echo $row['duty_period']?></td>
+          <td><?php echo $row['hollyday_cut']?></td>
           <td><?php echo $row['ou_rs']?></td>
           <td><?php echo $row['advance']?></td>
-          <td><?php echo $row['expenses']?></td>
           <td><?php echo $row['basic_salary']?></td>
+          <td><?php echo $row['pay_salary_month']?></td>
         </tr>
       <?php } ?>
     </table>

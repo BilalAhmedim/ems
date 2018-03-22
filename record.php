@@ -17,7 +17,7 @@
       background: #72bd26;
     }
     table{
-      width: 950px;
+      width: 100vw;
     }
   </style>
 </head>
@@ -28,7 +28,7 @@
   <div class="datafeed">
     <table>
       <tr>
-        <th>Entry No.</th>
+        <th>Total Emp.</th>
         <th>Employee No.</th>
         <th>Employee Name</th>
         <th>Presense</th>
@@ -52,10 +52,6 @@
         </tr>
       <?php }?>
     </table>
-    <form method="post" name="form">
-      <input type="text" class="name" name="name">
-      <input type="text" class="id" name="id">
-    </form>
   </div>
 </body>
 </html>
