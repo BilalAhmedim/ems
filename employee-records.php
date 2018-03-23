@@ -1,6 +1,7 @@
 <?php
-  session_start();
   include 'server.php';
+  $name = $_GET['name'];
+  $id = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +22,11 @@
 </head>
 <body>
   <header>
-    <h1><?php echo $_GET['name']?> Rocord</h1>
+    <h1><?php echo $name?> Rocord</h1>
   </header>
+  <div class="payslip">
+    <h2><a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id?>>Pay Slip</a></h2>
+  </div>
   <div class="datafeed">
     <table>
       <tr>
@@ -40,8 +44,6 @@
         <th>Payable</th>
       </tr>
       <?php
-        $name = $_GET['name'];
-        $id = $_GET['id'];
         $query = "SELECT * FROM " . $name . " WHERE id = $id";
         $query_result = mysqli_query($connect, $query);
         while( $row = mysqli_fetch_array($query_result) ) { ?>
