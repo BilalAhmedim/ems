@@ -138,8 +138,8 @@ hr {
               $time = $hours.".".$mins;
             }
             $pay_by_hour_day = round($time * $per_hour);
-             $salary_val=$salary;
-             $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
+            $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
+            $for_insert = $salary -( $salary/30 + $advance + $expenses ) + $ou_rs;
             //  Update data on Database
             $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month', total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
@@ -147,7 +147,7 @@ hr {
               die("Query Failed " . mysqli_error($connect));
             }
             $ontable = "INSERT INTO " . $name . "(pay_salary_month, pay_by_hour_day, basic_salary, ou_rs, days,total_underover_time, per_hour, id, name, duty_period, presence, time_in, time_out, total_time, advance, expenses) 
-            VALUE('$pay_salary_month','$pay_by_hour_day','$salary_val','$ou_rs','1','$total_underover_time','$per_hour','$id','$name','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+            VALUE('$for_insert','$pay_by_hour_day','$salary','$ou_rs','1','$total_underover_time','$per_hour','$id','$name','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
