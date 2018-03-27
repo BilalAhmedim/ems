@@ -29,6 +29,7 @@
       ?>
       <header>
         <div class="inline">
+          <h1>Pay Slip</h1><br>
           <h1>Month :<?php echo $previous_month?></h1>
           <h1>Year :<?php echo $year?></h1>
         </div>
