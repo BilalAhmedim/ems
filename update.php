@@ -138,35 +138,60 @@ hr {
               $time = $hours.".".$mins;
             }
             $pay_by_hour_day = round($time * $per_hour);
-            $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
-            $for_insert = $salary -( $salary/30 + $advance + $expenses ) + $ou_rs;
             //  Update data on Database
-            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month', total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
+            $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }
+             // get hollyday cut from summary
+            $hollyday_cut = DataBase("SELECT hollyday_cut FROM summary WHERE id = $id" , 'hollyday_cut');
+            // get time detuction
+            $td_query = DataBase("SELECT ou_rs FROM summary WHERE id = $id",'ou_rs');
+            // get all advance expenses from summary
+            $total_advance = DataBase("SELECT advance FROM summary WHERE id = $id",'advance');
+            $total_expenses = DataBase("SELECT expenses FROM summary WHERE id = $id",'expenses');
+            //  main equation for payable amount
+            $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
             $ontable = "INSERT INTO " . $name . "(pay_salary_month, pay_by_hour_day, basic_salary, ou_rs, days,total_underover_time, per_hour, id, name, duty_period, presence, time_in, time_out, total_time, advance, expenses) 
-            VALUE('$for_insert','$pay_by_hour_day','$salary','$ou_rs','1','$total_underover_time','$per_hour','$id','$name','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+            VALUE('$pay_salary_month','$pay_by_hour_day','$salary','$ou_rs','1','$total_underover_time','$per_hour','$id','$name','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
+              die("Query Failed " . mysqli_error($connect));
+            }
+            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month' WHERE id = $id";
+            $create_result = mysqli_query($connect, $create);
+            if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }
           }
           else {
             // main Equation for payable amount
-            $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
             $create = "UPDATE summary SET self_hollyday = self_hollyday + '1', hollyday_cut = hollyday_cut + '$day_cut', presence = '$presence' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
             }
+            // get hollyday cut from summary
+            $hollyday_cut = DataBase("SELECT hollyday_cut FROM summary WHERE id = $id" , 'hollyday_cut');
+            // get time detuction
+            $td_query = DataBase("SELECT ou_rs FROM summary WHERE id = $id",'ou_rs');
+            // get all advance expenses from summary
+            $total_advance = DataBase("SELECT advance FROM summary WHERE id = $id",'advance');
+            $total_expenses = DataBase("SELECT expenses FROM summary WHERE id = $id",'expenses');
+            //  main equation for payable amount
+            $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
             $ontable = "INSERT INTO " . $name . "(pay_salary_month,id,name,presence,self_hollyday,hollyday_cut) VALUE('$pay_salary_month','$id','$name','$presence','1','$day_cut')";
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
             }
+            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month' WHERE id = $id";
+            $create_result = mysqli_query($connect, $create);
+            if (! $create_result) {
+              die("Query Failed " . mysqli_error($connect));
             }
+          }
           header("Location: http://localhost/update.php");
         }
       ?>
