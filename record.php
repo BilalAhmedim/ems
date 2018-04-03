@@ -22,7 +22,11 @@
 </head>
 <body>
   <header>
-    <h1>Employee Rocords</h1>
+    <h1>Employee Rocords<?php
+     $currentMonth = date('F');
+     $previous_month =  Date('F', strtotime($currentMonth . " last month"));
+     echo " :- ".$currentMonth .' '. date('Y');
+    ?></h1>
   </header>
   <div class="datafeed">
     <table>
