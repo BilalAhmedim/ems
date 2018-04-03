@@ -16,6 +16,7 @@
   <title>Document</title>
 </head>
 <body>
+<?php include 'nav.php'?>
   <?php
     $currentMonth = date('F');
     $previous_month =  Date('F', strtotime($currentMonth . " last month"));

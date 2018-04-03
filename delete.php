@@ -24,6 +24,7 @@
   </style>
 </head>
 <body>
+<?php include 'nav.php'?>
   <header>
     <h1>Delete Employee</h1>
   </header><hr>

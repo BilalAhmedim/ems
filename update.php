@@ -31,6 +31,7 @@ hr {
     </script>
 </head>
 <body>
+<?php include 'nav.php'?>
   <header>
     <h1>Daily Updates</h1>
   </header>

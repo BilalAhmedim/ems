@@ -16,6 +16,7 @@
   </style>
 </head>
 <body>
+  <?php include 'nav.php'?>
   <header>
     <h1>Create Employee</h1>
   </header>

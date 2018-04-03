@@ -15,6 +15,7 @@
   </style>
 </head>
 <body>
+<?php include 'nav.php'?>
   <header>
     <h1>Employee Management System</h1>
   </header>

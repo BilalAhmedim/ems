@@ -1,5 +1,5 @@
 body
-  font-family: cursive
+  font-family: Roboto
   font-size: 14px
   margin: 0
 header
@@ -33,7 +33,7 @@ header
 .form
   position: absolute
   font-size: 16px
-  top: 20%
+  top: 30%
   left: 50%
   transform: translate(-50%,-10%)
   width: 350px
@@ -76,7 +76,7 @@ header
         transform: translateY(1px)
     .check
       font-size: 12px
-      font-family: Arial
+      font-family: Roboto
       font-weight: bold
       color: rgba(255,0,0,.6)
       font-weight: bold
@@ -100,13 +100,13 @@ table
   //min-width: 1255px
   th
     padding: 6.5px
-    font-family: Arial Black
+    font-family: Roboto
   td
     text-align: center
     background: #587d34
     a
       text-decoration: none
-      font-family: Arial
+      font-family: Roboto
       font-weight: bold
       font-size: 14px
       color: #fff
@@ -128,7 +128,7 @@ table
       display: block
     .check p
       font-size: 14px
-      font-family: Arial
+      font-family: Roboto
       font-weight: bold
       color: red
       font-weight: bold
@@ -180,3 +180,33 @@ header
       h3
         display: inline-block
         margin-left: 50px
+
+/////////////////// navigation
+nav::after,ul::after,li::after
+  content: ""
+  clear: both
+  display: table
+nav
+  background: rgba(255,255,255,.5)
+  height: auto
+  ul
+    width: 600px
+    margin: 0 auto
+    padding: 0
+    li
+      display: block
+      float: left
+      text-align: center
+      padding: 10px
+      a
+        text-decoration: none
+        padding: 10px
+        display: inline
+        color: #111
+        font-weight: 500
+        font-family: Roboto
+        transition: 200ms ease all
+        &:hover
+          color: #fff
+          background: #111
+          border-radius: 5px

@@ -21,6 +21,7 @@
   </style>
 </head>
 <body>
+<?php include 'nav.php'?>
   <header>
     <h1>Employee Rocords<?php
      $currentMonth = date('F');

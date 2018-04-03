@@ -18,9 +18,14 @@
     table{
       width: 100vw;
     }
+    .payslip h2{
+      float: right;
+      margin: -40px 50px 0px 0
+    }
   </style>
 </head>
 <body>
+<?php include 'nav.php'?>
   <header>
     <h1><?php echo $name?> Rocord</h1>
   </header>
