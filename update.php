@@ -2,6 +2,21 @@
 include 'server.php';
 $id;
 $name;
+function redirect($url){
+  if (!headers_sent()){
+    header('Location: '.$url);
+    exit;
+  }
+  else{
+    echo '<script type="text/javascript">';
+    echo 'window.location.href="'.$url.'";';
+    echo '</script>';
+    echo '<noscript>';
+    echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+    echo '</noscript>'; 
+    exit;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +41,6 @@ hr {
   border-style: solid;
 }
 </style>
-<script>
-      var opt;
-    </script>
 </head>
 <body>
 <?php include 'nav.php'?>
@@ -42,12 +54,10 @@ hr {
         <label class="select" for="target">Select Employee : </label> <select name="target">
           <option value="0">---Select an Option---</option>
             <?php while($row=mysqli_fetch_array($summary_result)) {?>
-            <option value=<?php echo $row['id']; ?>>
             <?php
-              echo $row['id'] . " " . $row['name'];
+              echo "<option value=" . $row['id'] . ">" . $row['id'] . " " . $row['name'] . "</option>";
             }
             ?>
-            </option>
         </select>
       </center>
       <label for="presence">Presence: </label> <select name="presence">
@@ -193,7 +203,7 @@ hr {
               die("Query Failed " . mysqli_error($connect));
             }
           }
-          header("Location: http://localhost/update.php");
+          redirect("update.php");
         }
       ?>
       </label>
