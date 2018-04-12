@@ -9,14 +9,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
   <style>
-    body header h1{
+    body header h4{
       color: black;
     }
   </style>
   <title>Document</title>
 </head>
 <body>
-<?php include 'nav.php'?>
   <?php
     $currentMonth = date('F');
     $previous_month =  Date('F', strtotime($currentMonth . " last month"));
@@ -30,9 +29,9 @@
       ?>
       <header>
         <div class="inline">
-          <h1>Pay Slip</h1><br>
-          <h1>Month :<?php echo $previous_month?></h1>
-          <h1>Year :<?php echo $year?></h1>
+          <h4>Pay Slip</h4><br>
+          <h4>Month : <?php echo $previous_month . ' ,'?></h4>
+          <h4>Year : <?php echo $year?></h4>
         </div>
       </header>
       <div class="slip">

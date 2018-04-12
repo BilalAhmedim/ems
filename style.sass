@@ -167,19 +167,20 @@ table
 header
   .inline
     display: inline-block
-    h1
+    h4
       display: inline-block
-      margin-left: 50px
+      margin: 10px 0 10px 0px
 
 .slip
-  width: 750px
+  text-align: center
   margin: 10px auto
   .receive
     .inline
       display: inline-block
       h3
         display: inline-block
-        margin-left: 50px
+        margin-bottom: 10px
+        margin-left: 25px
 
 /////////////////// navigation
 nav::after,ul::after,li::after
@@ -210,3 +211,25 @@ nav
           color: #fff
           background: #111
           border-radius: 5px
+
+// hide 2nd row in employee records
+
+.table--hide-2-r tr
+  &:nth-child(2)
+    display: none
+
+// pay button
+
+.pay--button
+  display: block
+  margin-top: -20px
+  margin-left: 50px
+  position: relative
+  z-index: 9999
+  a
+    background: rgba(255,255,255,.5)
+    color: red
+    padding: 10px
+    border: 1px solid #000
+    &:visited
+      color: blue

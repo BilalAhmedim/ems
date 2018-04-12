@@ -18,23 +18,30 @@
     table{
       width: 100vw;
     }
-    .payslip h2{
-      float: right;
-      margin: -40px 50px 0px 0
+    .payslip{
+      display: table;
+      clear: both;
+    }
+    .payslip a{
+      font-size: 18px;
+      display: inline;
+      float: left;
+      margin: 0px 0px 40px 50px;
     }
   </style>
 </head>
 <body>
 <?php include 'nav.php'?>
   <header>
-    <h1><?php echo $name?> Rocord</h1>
+    <h1><?php echo strtoupper($name)?> Rocord</h1>
   </header>
-  <div class="payslip">
-    <h2><a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id?>>Pay Slip</a></h2>
+  <div class="pay--button">
+    <a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id?>>Pay Slip</a>
   </div>
   <div class="datafeed">
-    <table>
+    <table class="table--hide-2-r">
       <tr>
+        <th>Days</th>
         <th>Emp. No.</th>
         <th>Emp. Name</th>
         <th>Presense</th>
@@ -53,6 +60,7 @@
         $query_result = mysqli_query($connect, $query);
         while( $row = mysqli_fetch_array($query_result) ) { ?>
         <tr>
+          <td><?php echo --$row['no']?></td>
           <td><?php echo $row['id']?></td>
           <td><?php echo $row['name']?></td>
           <td><?php echo $row['days']?></td>
