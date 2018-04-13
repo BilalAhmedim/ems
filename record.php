@@ -16,7 +16,10 @@
       background: #72bd26;
     }
     table{
-      width: 100vw;
+      width: 98vw;
+    }
+    table tr > td{
+      padding: 5px 0 5px 0;
     }
   </style>
 </head>

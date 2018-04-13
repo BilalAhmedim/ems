@@ -16,7 +16,7 @@
       background: #72bd26;
     }
     table{
-      width: 100vw;
+      width: 98vw;
     }
     .payslip{
       display: table;
@@ -27,6 +27,10 @@
       display: inline;
       float: left;
       margin: 0px 0px 40px 50px;
+    }
+    table tr > td{
+      padding: 5px 0 5px 0;
+      color: #fff
     }
   </style>
 </head>
@@ -39,17 +43,17 @@
     <a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id?>>Pay Slip</a>
   </div>
   <div class="datafeed">
-    <table class="table--hide-2-r">
+    <table class="table--hide-2-r" cellspacing=0>
       <tr>
-        <th>Days</th>
-        <th>Emp. No.</th>
-        <th>Emp. Name</th>
+        <th>Dates</th>
+        <th>No.</th>
+        <th>Name</th>
         <th>Presense</th>
         <th>Absence</th>
         <th>TimeIn</th>
         <th>TimeOut</th>
         <th>Duty Period</th>
-        <th>Hollyday cut</th>
+        <th>Hollyday det</th>
         <th>Under/Over Time</th>
         <th>Advance</th>
         <th>Basic Salary</th>

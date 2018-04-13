@@ -36,7 +36,7 @@ label {
 }
 
 hr {
-  margin: 50px 0;
+  margin: 22px 0;
   border-color: rgba(255, 255, 255, .5);
   border-style: solid;
 }
@@ -129,7 +129,7 @@ hr {
             $duty = (strtotime($timeout) - strtotime($timein));
             $newmins = floor($duty / 60 % 60);
             $newsecs = floor($duty % 60);
-            if($duty >= 53400){
+            if( ($duty - 3600) >= 53400){
               $newhours = floor(($duty + 3600 ) / 3600);
               $newmins = floor($duty / 60 % 60);
               $newsecs = floor($duty % 60);
@@ -137,7 +137,7 @@ hr {
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 121;
               $ou_rs = ($total_underover_time / 60) * round($per_hour);
-            }else if($duty >= 39000 ){
+            }else if( ($duty - 3600) >= 39000 ){
               $newhours = floor( $duty / 3600);
               $newmins = floor($duty / 60 % 60);
               $newsecs = floor($duty % 60);

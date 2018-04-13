@@ -1,5 +1,20 @@
 <?php
   include 'server.php';
+  function redirect($url){
+    if (!headers_sent()){
+      header('Location: '.$url);
+      exit;
+    }
+    else{
+      echo '<script type="text/javascript">';
+      echo 'window.location.href="'.$url.'";';
+      echo '</script>';
+      echo '<noscript>';
+      echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+      echo '</noscript>'; 
+      exit;
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,41 +44,43 @@
     <h1>Delete Employee</h1>
   </header><hr>
   <div>
-  <table class="datafeed">
-    <tr>
-      <th>Employee No.</th>
-      <th>Employee Name</th>
-      <th>Advance</th>
-      <th>Basic Salary</th>
-      <th>Delete Employee</th>
-    </tr>
-    <?php
-      while($row = mysqli_fetch_array($summary_result)) {?>
-    <tr>
-      <td><?php echo $row['id'];?></td>
-      <td><?php echo $row['name'];?></td>
-      <td><?php echo $row['advance'];?></td>
-      <td><?php echo $row['basic_salary'];?></td>
-      <td><form method="POST"><input type="submit" id="submit" name="delete" value="<?php echo $row['id']?>" onclick="return confirm('Sure to Delete Employee');"></form></td>
-    </tr>
+  <form method="post">
+    <table class="datafeed">
+      <tr>
+        <th>Employee No.</th>
+        <th>Employee Name</th>
+        <th>Advance</th>
+        <th>Basic Salary</th>
+        <th>Delete Employee</th>
+      </tr>
       <?php
-        $name = $row['name'];
-        if(isset($_POST['delete'])){
-          $query = "DELETE FROM summary WHERE id =".$_POST['delete'];
-          $delete ="DROP TABLE ".$row['name'];
-          $delqry = mysqli_query($connect,$delete);
-          $res = mysqli_query($connect,$query);
-          if(!$res){
-            echo "Query Failed ".mysqli_error($res);
+        while($row = mysqli_fetch_array($summary_result)) {?>
+      <tr>
+        <td><?php echo $row['id'];?></td>
+        <td><?php echo $row['name'];?></td>
+        <td><?php echo $row['advance'];?></td>
+        <td><?php echo $row['basic_salary'];?></td>
+        <td><input type="submit" id="submit" name="delete" value="<?php echo $row['id']?>" onclick="return confirm('Sure to Delete Employee');"></td>
+      </tr>
+        <?php
+          $name = $row['name'];
+          if(isset($_POST['delete'])){
+            $query = "DELETE FROM summary WHERE id =".$_POST['delete'];
+            $delete ="DROP TABLE ".$row['name'];
+            $delqry = mysqli_query($connect,$delete);
+            $res = mysqli_query($connect,$query);
+            if(!$res){
+              echo "Query Failed ".mysqli_error($res);
+            }
+            if(!$delqry){
+              echo "Query Failed ".mysqli_error($delqry);
+            }
+            redirect("delete.php");
           }
-          if(!$delqry){
-            echo "Query Failed ".mysqli_error($delqry);
-          }
-          header("Location: http://localhost/delete.php");
-        }
-      ?>
-    <?php }?>
-  </table>
+        ?>
+      <?php }?>
+    </table>
+  </form>
   </div>
 </body>
 </html>

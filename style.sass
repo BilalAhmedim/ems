@@ -6,6 +6,7 @@ header
   text-align: center
   h1
     color: #fff
+    margin: 0
 .create,.read,.update,.delete
   width: 50%
   height: 42vh
@@ -97,13 +98,18 @@ header
   transform: translate(-50%,0)
 table
   margin-top: 50px
-  //min-width: 1255px
+  tr
+    &:nth-child(odd)
+      > td
+        background: rgba(88, 125, 52,1)
+    &:nth-child(even)
+      > td
+        background: rgba(88, 125, 52,.6)
   th
     padding: 6.5px
     font-family: Roboto
   td
     text-align: center
-    background: #587d34
     a
       text-decoration: none
       font-family: Roboto

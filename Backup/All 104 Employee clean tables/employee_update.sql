@@ -2715,7 +2715,7 @@ CREATE TABLE `nazeem_bhai_supervisor` (
 --
 
 INSERT INTO `nazeem_bhai_supervisor` (`no`, `id`, `name`, `days`, `presence`, `time_in`, `time_out`, `total_time`, `duty_period`, `self_hollyday`, `hollyday_cut`, `total_underover_time`, `per_hour`, `ou_rs`, `advance`, `expenses`, `basic_salary`, `pay_salary_month`, `pay_by_hour_day`) VALUES
-(1, 99, 'nazeem_bhai_supervisor', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 12000, 0, 0);
+(1, 99, 'nazeem_bhai_supervisor', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 13000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -3632,7 +3632,7 @@ INSERT INTO `summary` (`no`, `id`, `name`, `days`, `presence`, `time_in`, `time_
 (75, 96, 'mohd_faizan', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 9500, 0, 0),
 (76, 97, 'arman_hp', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 4500, 0, 0),
 (77, 98, 'abdul_shamad_hp', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 5000, 0, 0),
-(78, 99, 'nazeem_bhai_supervisor', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 12000, 0, 0),
+(78, 99, 'nazeem_bhai_supervisor', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 13000, 0, 0),
 (79, 100, 'mohd_arman_mehmoodpud', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 8000, 0, 0),
 (80, 101, 'abrar_bhai', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 13500, 0, 0),
 (81, 102, 'mohd_alam_gale_no4', 0, 0, '00:00:00', '00:00:00', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 5000, 0, 0),
