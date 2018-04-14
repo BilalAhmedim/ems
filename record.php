@@ -40,8 +40,8 @@
         <th>Employee Name</th>
         <th>Presense</th>
         <th>Absence</th>
-        <th>Time</th>
-        <th>Advance</th>
+        <th>Time Rs</th>
+        <th>Advance Recovery</th>
         <th>Expenses</th>
         <th>Basic Salary</th>
       </tr>

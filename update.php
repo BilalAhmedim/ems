@@ -129,7 +129,7 @@ hr {
             $duty = (strtotime($timeout) - strtotime($timein));
             $newmins = floor($duty / 60 % 60);
             $newsecs = floor($duty % 60);
-            if( ($duty - 3600) >= 53400){
+            if( $duty >= 53400){
               $newhours = floor(($duty + 3600 ) / 3600);
               $newmins = floor($duty / 60 % 60);
               $newsecs = floor($duty % 60);

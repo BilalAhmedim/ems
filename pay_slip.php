@@ -39,7 +39,7 @@
           <div class="inline">
             <h3>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $name?></h3>
             <h3>Employee No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $id?></h3>
-            <h3>Advance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $row['advance']?></h3>
+            <h3>Advance Recovery&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $row['advance']?></h3>
           </div>
           <br />
           <div class="inline">

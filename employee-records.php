@@ -45,17 +45,18 @@
   <div class="datafeed">
     <table class="table--hide-2-r" cellspacing=0>
       <tr>
-        <th>Dates</th>
+        <th>Date</th>
         <th>No.</th>
         <th>Name</th>
         <th>Presense</th>
         <th>Absence</th>
         <th>TimeIn</th>
         <th>TimeOut</th>
+        <th>Total Time</th>
         <th>Duty Period</th>
         <th>Hollyday det</th>
-        <th>Under/Over Time</th>
-        <th>Advance</th>
+        <th>Under/Over Time Rs</th>
+        <th>Advance Recovery</th>
         <th>Basic Salary</th>
         <th>Payable</th>
       </tr>
@@ -71,6 +72,7 @@
           <td><?php echo $row['self_hollyday']?></td>
           <td><?php echo $row['time_in']?></td>
           <td><?php echo $row['time_out']?></td>
+          <td><?php echo $row['total_time']?></td>
           <td><?php echo $row['duty_period']?></td>
           <td><?php echo $row['hollyday_cut']?></td>
           <td><?php echo $row['ou_rs']?></td>
