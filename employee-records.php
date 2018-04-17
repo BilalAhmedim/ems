@@ -35,12 +35,19 @@
   </style>
 </head>
 <body>
-<?php include 'nav.php'?>
+<?php include 'nav.php';
+  $photo = mysqli_query($connect, "SELECT image FROM summary WHERE id = $id");
+  if(!$photo){
+    echo "<center><h1>Unable to Fetch Photo or Photo is not Exists</h1></center>";
+    return false;
+  }
+  $image = mysqli_fetch_array($photo);
+?>
   <header>
-    <h1><?php echo strtoupper($name)?> Rocord</h1>
+    <h1><img src=<?php echo $image['image']; ?> class="Photo" alt="Employee Photo"><?php echo strtoupper($name)?> Rocord</h1>
   </header>
   <div class="pay--button">
-    <a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id?>>Pay Slip</a>
+    <a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']?>>Pay Slip</a>
   </div>
   <div class="datafeed">
     <table class="table--hide-2-r" cellspacing=0>

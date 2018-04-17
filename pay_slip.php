@@ -22,12 +22,14 @@
     $year = date("Y");
     $name = $_GET['name'];
     $id = $_GET['id'];
+    $image = $_GET['image'];
     if($name && $id){
       $query = "SELECT advance, basic_salary, total_underover_time, pay_salary_month From Summary WHERE id = $id";
       $result = mysqli_query($connect , $query);
       $row = mysqli_fetch_array($result);
       ?>
       <header>
+        <h1><img src=<?php echo $image ?> class="Photo-pay" alt="Employee Imge"></h1>
         <div class="inline">
           <h4>Pay Slip</h4><br>
           <h4>Month : <?php echo $previous_month . ' ,'?></h4>

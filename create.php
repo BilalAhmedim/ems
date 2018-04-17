@@ -21,13 +21,15 @@
     <h1>Create Employee</h1>
   </header>
   <div class="form">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
       <label for="id">Employee Number</label>
       <input type="number" class="id" name="number" placeholder="Emloyee Number">
       <label for="name">Emloyee Name</label>
       <input type="text" class="name" name="name" placeholder="Emloyee Name">
       <label for="basicsalary">Basic Salary</label>
       <input type="number" class="basicsalary" name="salary" placeholder="Basic Salary">
+      <label for="file">Upload Image</label>
+      <input type="file" name="file" class="upload-input">
       <input type="submit" name="submit" value="submit" class="submit" onclick="return confirm('Sure to Create Employee')">
       <div class="check">
       <?php
@@ -35,6 +37,16 @@
         $ename = $_POST['name'];
         $enum = $_POST['number'];
         $esalary = $_POST['salary'];
+        $file = $_FILES['file'];
+        $fileName = $_FILES['file']['name'];
+        $fileTmp = $_FILES['file']['tmp_name'];
+        $fileSize = $_FILES['file']['size'];
+        $fileError = $_FILES['file']['error'];
+        $fileType = $_FILES['file']['type'];
+        $fileExt = explode('.' , $fileName);
+        $fileAcExt = strtolower(end($fileExt));    
+        $allow = array('jpg', 'jpeg', 'png', 'pdf');
+        $fileDest;
         if($enum==0 || $enum==""){
           echo "<p>Enter Employee Number.</p>";
           return false;
@@ -44,6 +56,23 @@
         }if($esalary==0 || $esalary < 1000){
           echo "<p>Please Check Salary.</p>";
           return false;
+        }
+        if( in_array($fileAcExt, $allow) ){
+          if($fileError === 0){
+            if($fileSize < 2000000){
+              $fileNameNew = uniqid("",true).".".$fileAcExt;
+              $fileDest = "uploads/".$fileNameNew;
+              move_uploaded_file($fileTmp,$fileDest);
+            }else{
+              echo "<p>Your File is Too Large!</p>";
+            }
+          }
+          else{
+            echo "<p>There was an error uploading your Image!</p>";
+          }
+        }
+        else{
+          echo "<p>You cannot uploads this ype of Image!</p>";
         }
         $table = "CREATE TABLE ". $ename ."(
           `no` int(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -75,10 +104,13 @@
         if(!$create_result){
           die("Query Failed ".mysqli_error($create_result));
         }
-        $summarytable = "INSERT INTO summary(id,name,basic_salary) VALUE('$enum','$ename','$esalary')";
+        $summarytable = "INSERT INTO summary(id,name,basic_salary,image) VALUE('$enum','$ename','$esalary','$fileDest')";
         $summaryquery = mysqli_query($connect,$summarytable);
         if(!$summaryquery){
           die("Query Failed ".mysqli_error($summaryquery));
+        }
+        if(!$upload_image){
+          echo "Query Failed Image could not Upload!";
         }
         header("Location: http://localhost/create.php");
       }
