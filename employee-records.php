@@ -47,7 +47,7 @@
     <h1><img src=<?php echo $image['image']; ?> class="Photo" alt="Employee Photo"><?php echo strtoupper($name)?> Rocord</h1>
   </header>
   <div class="pay--button">
-    <a href=<?php echo "http://localhost/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']?>>Pay Slip</a>
+    <a href=<?php echo "http://localhost/ems/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']?>>Pay Slip</a>
   </div>
   <div class="datafeed">
     <table class="table--hide-2-r" cellspacing=0>

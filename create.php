@@ -112,7 +112,7 @@
         if(!$upload_image){
           echo "Query Failed Image could not Upload!";
         }
-        header("Location: http://localhost/create.php");
+        header("Location: http://localhost/ems/create.php");
       }
       ?></div>
     </form>
