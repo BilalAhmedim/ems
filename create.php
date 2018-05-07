@@ -34,7 +34,8 @@
       <div class="check">
       <?php
       if( isset($_POST['submit']) ) {
-        $ename = $_POST['name'];
+        $orignalName = $_POST['name'];
+        $ename = str_replace( " " , "_", $orignalName);
         $enum = $_POST['number'];
         $esalary = $_POST['salary'];
         $file = $_FILES['file'];
@@ -50,8 +51,8 @@
         if($enum==0 || $enum==""){
           echo "<p>Enter Employee Number.</p>";
           return false;
-        }if(strlen($ename) < 4){
-          echo "<p>Name must graterthan than 4.</p>";
+        }if(strlen($ename) < 3){
+          echo "<p>Name must graterthan than 3 Latters.</p>";
           return false;
         }if($esalary==0 || $esalary < 1000){
           echo "<p>Please Check Salary.</p>";

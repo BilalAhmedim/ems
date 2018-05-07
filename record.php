@@ -35,7 +35,6 @@
   <div class="datafeed">
     <table>
       <tr>
-        <th>Total Emp.</th>
         <th>Employee No.</th>
         <th>Employee Name</th>
         <th>Presense</th>
@@ -47,9 +46,8 @@
       </tr>
       <?php while($row=mysqli_fetch_array($summary_result) ) { ?>
         <tr onclick="session(this.getAttribute('name'),this.getAttribute('value'))" class="send" name=<?php echo $row['name']?> value=<?php echo $row['id']?> >
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['no']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['id']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['name']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo str_replace("_"," ",$row['name'])?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['days']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['self_hollyday']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['ou_rs']?></a></td>

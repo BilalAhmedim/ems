@@ -57,7 +57,7 @@
         while($row = mysqli_fetch_array($summary_result)) {?>
       <tr>
         <td><?php echo $row['id'];?></td>
-        <td><?php echo $row['name'];?></td>
+        <td><?php echo str_replace("_"," ",$row['name']);?></td>
         <td><?php echo $row['advance'];?></td>
         <td><?php echo $row['basic_salary'];?></td>
         <td><input type="submit" id="submit" name="delete" value="<?php echo $row['id']?>" onclick="return confirm('Sure to Delete Employee');"></td>

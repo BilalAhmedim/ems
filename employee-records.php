@@ -1,6 +1,7 @@
 <?php
   include 'server.php';
   $name = $_GET['name'];
+  
   $id = $_GET['id'];
 ?>
 <!DOCTYPE html>
@@ -44,7 +45,7 @@
   $image = mysqli_fetch_array($photo);
 ?>
   <header>
-    <h1><img src=<?php echo $image['image']; ?> class="Photo" alt="Employee Photo"><?php echo strtoupper($name)?> Rocord</h1>
+    <h1><img src=<?php echo $image['image']; ?> class="Photo" alt="Employee Photo"><?php echo str_replace("_"," ",strtoupper($name))?> Rocord</h1>
   </header>
   <div class="pay--button">
     <a href=<?php echo "http://localhost/ems/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']?>>Pay Slip</a>
@@ -74,7 +75,7 @@
         <tr>
           <td><?php echo --$row['no']?></td>
           <td><?php echo $row['id']?></td>
-          <td><?php echo $row['name']?></td>
+          <td><?php echo str_replace("_"," ",$row['name'])?></td>
           <td><?php echo $row['days']?></td>
           <td><?php echo $row['self_hollyday']?></td>
           <td><?php echo $row['time_in']?></td>

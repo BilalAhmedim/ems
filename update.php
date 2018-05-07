@@ -55,7 +55,7 @@ hr {
           <option value="0">---Select an Option---</option>
             <?php while($row=mysqli_fetch_array($summary_result)) {?>
             <?php
-              echo "<option value=" . $row['id'] . ">" . $row['id'] . " " . $row['name'] . "</option>";
+              echo "<option value=" . $row['id'] . ">" . $row['id'] . " " . str_replace("_"," ",$row['name']) . "</option>";
             }
             ?>
         </select>
