@@ -63,11 +63,18 @@ hr {
       <label for="presence">Presence: </label> <select name="presence">
         <option value="1">Yes</option>
         <option value="0">No</option>
-      </select> <label for="timein">Time In: </label> <input type="time"
-        name="timein"> <label for="timeout">Time Out: </label> <input
-        type="time" name="timeout"> <label for="advance">Advance: </label>
-      <input type="number" name="advance"> <label for="expenses">Expenses:</label>
-      <input type="number" name="expenses"> <br> <input type="submit" name="submit"> <label class="check">
+      </select>
+      <label for="timein">Time In: </label>
+      <input type="time" name="timein">
+      <label for="timeout">Time Out: </label>
+      <input type="time" name="timeout">
+      <label for="total_advance">Advance: </label>
+      <input type="number" name="total_advance">
+      <label for="advance">Advance Recovery: </label>
+      <input type="number" name="advance">
+      <label for="expenses">Expenses:</label>
+      <input type="number" name="expenses"> <br>
+      <input type="submit" name="submit"> <label class="check">
         <?php
         function DataBase($query,$action){
           $connect = mysqli_connect("localhost","root","","employee");
@@ -84,6 +91,7 @@ hr {
           $timeout = $_POST['timeout'];
           $advance = $_POST['advance'];
           $expenses = $_POST['expenses'];
+          $total_advance_main = $_POST['total_advance'];
           $id = $_POST['target'];
           $total = (strtotime($timeout) - strtotime($timein)) - 3600;
           $hours = floor($total / 3600);

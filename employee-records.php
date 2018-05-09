@@ -46,6 +46,7 @@
 ?>
   <header>
     <h1><img src=<?php echo $image['image']; ?> class="Photo" alt="Employee Photo"><?php echo str_replace("_"," ",strtoupper($name))?> Rocord</h1>
+    <small>Total Advance Left: 12345</small>
   </header>
   <div class="pay--button">
     <a href=<?php echo "http://localhost/ems/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']?>>Pay Slip</a>
@@ -73,18 +74,18 @@
         $query_result = mysqli_query($connect, $query);
         while( $row = mysqli_fetch_array($query_result) ) { ?>
         <tr>
-          <td><?php echo --$row['no']?></td>
+          <td><?php echo $row['no']?></td>
           <td><?php echo $row['id']?></td>
           <td><?php echo str_replace("_"," ",$row['name'])?></td>
-          <td><?php echo $row['days']?></td>
-          <td><?php echo $row['self_hollyday']?></td>
-          <td><?php echo $row['time_in']?></td>
-          <td><?php echo $row['time_out']?></td>
+          <td><?php if( $row['days'] != 0){ echo $row['days'];}?></td>
+          <td><?php if( $row['self_hollyday']==1 ){ echo $row['self_hollyday'];}?></td>
+          <td><?php echo date('h:i a',strtotime($row['time_in']))?></td>
+          <td><?php echo date('h:i a',strtotime($row['time_out']))?></td>
           <td><?php echo $row['total_time']?></td>
           <td><?php echo $row['duty_period']?></td>
-          <td><?php echo $row['hollyday_cut']?></td>
-          <td><?php echo $row['ou_rs']?></td>
-          <td><?php echo $row['advance']?></td>
+          <td><?php if($row['hollyday_cut'] != 0) {echo $row['hollyday_cut'];}?></td>
+          <td><?php if($row['ou_rs'] != 0){echo $row['ou_rs'];}?></td>
+          <td><?php if( $row['advance'] != 0){echo $row['advance'];}?></td>
           <td><?php echo $row['basic_salary']?></td>
           <td><?php echo $row['pay_salary_month']?></td>
         </tr>
