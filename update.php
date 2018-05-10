@@ -68,8 +68,8 @@ hr {
       <input type="time" name="timein">
       <label for="timeout">Time Out: </label>
       <input type="time" name="timeout">
-      <label for="total_advance">Advance: </label>
-      <input type="number" name="total_advance">
+      <label for="total_advance_main">Advance: </label>
+      <input type="number" name="total_advance_main">
       <label for="advance">Advance Recovery: </label>
       <input type="number" name="advance">
       <label for="expenses">Expenses:</label>
@@ -91,7 +91,7 @@ hr {
           $timeout = $_POST['timeout'];
           $advance = $_POST['advance'];
           $expenses = $_POST['expenses'];
-          $total_advance_main = $_POST['total_advance'];
+          $total_advance_main = $_POST['total_advance_main'];
           $id = $_POST['target'];
           $total = (strtotime($timeout) - strtotime($timein)) - 3600;
           $hours = floor($total / 3600);
@@ -158,7 +158,7 @@ hr {
             }
             $pay_by_hour_day = round($time * $per_hour);
             //  Update data on Database
-            $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses' WHERE id = $id";
+            $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses', total_advance_main = total_advance_main + '$total_advance_main' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
@@ -174,11 +174,15 @@ hr {
             $pay_salary_month = $salary -( $hollyday_cut + $total_advance + $total_expenses ) + $td_query;
             $ontable = "INSERT INTO " . $name . "(pay_salary_month, pay_by_hour_day, basic_salary, ou_rs, days,total_underover_time, per_hour, id, name, duty_period, presence, time_in, time_out, total_time, advance, expenses) 
             VALUE('$pay_salary_month','$pay_by_hour_day','$salary','$ou_rs','1','$total_underover_time','$per_hour','$id','$name','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
+            //  Advance Detuction in main Total Advance
+            $total_advance = DataBase("SELECT advance FROM summary WHERE id = $id",'advance');
+            $deduct_adv = DataBase("SELECT total_advance_main from summary WHERE id = '$id'",'total_advance_main') - $total_advance;
+
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
             }
-            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month' WHERE id = $id";
+            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month', total_advance_main = '$deduct_adv' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));

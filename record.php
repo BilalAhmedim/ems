@@ -40,6 +40,7 @@
         <th>Presense</th>
         <th>Absence</th>
         <th>Time Rs</th>
+        <th>Total Advance</th>
         <th>Advance Recovery</th>
         <th>Expenses</th>
         <th>Basic Salary</th>
@@ -51,6 +52,7 @@
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['days']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['self_hollyday']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['ou_rs']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['total_advance_main']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['advance']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['expenses']?></a></td>
           <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['basic_salary']?></a></td>

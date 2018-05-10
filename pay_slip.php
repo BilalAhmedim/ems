@@ -23,6 +23,7 @@
     $name = $_GET['name'];
     $id = $_GET['id'];
     $image = $_GET['image'];
+    $left_adv = $_GET['total_advance_left'];
     if($name && $id){
       $query = "SELECT advance, basic_salary, total_underover_time, pay_salary_month From Summary WHERE id = $id";
       $result = mysqli_query($connect , $query);
@@ -31,9 +32,8 @@
       <header>
         <h1><img src=<?php echo $image ?> class="Photo-pay" alt="Employee Imge"></h1>
         <div class="inline">
-          <h4>Pay Slip</h4><br>
-          <h4>Month : <?php echo $previous_month . ' ,'?></h4>
-          <h4>Year : <?php echo $year?></h4>
+          <h4>Pay Slip :- Month : <?php echo $previous_month . ' ,'?>Year : <?php echo $year?></h4><br>
+          <h3>Total Advance Left: <?php echo $left_adv?></h3>
         </div>
       </header>
       <div class="slip">

@@ -114,6 +114,7 @@ header
   top: 200px
   left: 50%
   transform: translate(-50%,0)
+
 table
   margin-top: 50px
   tr
@@ -134,8 +135,20 @@ table
       font-weight: bold
       font-size: 14px
       color: #fff
-      padding: 5px 45px
-
+      padding: 5px 4px
+table.delete-page
+  tr
+    color: #fff
+    font-weight: 100
+    &:nth-child(odd)
+      > td
+        background: rgba(255 ,255 ,255 ,.5)
+    &:nth-child(even)
+      > td
+        background: rgba(255 ,255 ,255 ,.8)
+    td
+      color: #000
+      font-weight: 500
 ////////////////////    daily update
 
 .dailyupdates

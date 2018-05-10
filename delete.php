@@ -45,7 +45,7 @@
   </header><hr>
   <div>
   <form method="post">
-    <table class="datafeed">
+    <table class="datafeed delete-page">
       <tr>
         <th>Employee No.</th>
         <th>Employee Name</th>

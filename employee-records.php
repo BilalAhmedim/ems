@@ -37,19 +37,29 @@
 </head>
 <body>
 <?php include 'nav.php';
+  function DataBase($query,$action){
+    $connect = mysqli_connect("localhost","root","","employee");
+    $sql = mysqli_query($connect, $query);
+    $result = mysqli_fetch_array($sql);
+    if(!$result){
+      die("Query Failed " . mysqli_error($connect));
+    }
+    return $result[$action];
+  }
   $photo = mysqli_query($connect, "SELECT image FROM summary WHERE id = $id");
   if(!$photo){
     echo "<center><h1>Unable to Fetch Photo or Photo is not Exists</h1></center>";
     return false;
   }
   $image = mysqli_fetch_array($photo);
+  $adv = DataBase("SELECT total_advance_main FROM summary Where id =$id",'total_advance_main');
 ?>
   <header>
     <h1><img src=<?php echo $image['image']; ?> class="Photo" alt="Employee Photo"><?php echo str_replace("_"," ",strtoupper($name))?> Rocord</h1>
-    <small>Total Advance Left: 12345</small>
+    <small>Total Advance Left: <?php echo DataBase("SELECT total_advance_main FROM summary WHERE id = $id",'total_advance_main')?></small>
   </header>
   <div class="pay--button">
-    <a href=<?php echo "http://localhost/ems/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']?>>Pay Slip</a>
+    <a href=<?php echo "http://localhost/ems/pay_slip.php?name=".$name."&id=".$id."&image=".$image['image']."&total_advance_left=".$adv?>>Pay Slip</a>
   </div>
   <div class="datafeed">
     <table class="table--hide-2-r" cellspacing=0>
