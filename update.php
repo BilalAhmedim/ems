@@ -74,7 +74,7 @@ hr {
       <input type="number" name="advance">
       <label for="expenses">Expenses:</label>
       <input type="number" name="expenses"> <br>
-      <input type="submit" name="submit"> <label class="check">
+      <input type="submit" name="submit" onclick="confirm('Sure to Procedure Data.')"> <label class="check">
         <?php
         function DataBase($query,$action){
           $connect = mysqli_connect("localhost","root","","employee");
@@ -118,7 +118,7 @@ hr {
           $days = DataBase("SELECT days FROM summary WHERE id = $id",'days');
           $underover = $total-28800;
           $total_underover_time = $underover / 60;
-          $ou_rs = ($total_underover_time / 60) * round($per_hour);
+          $ou_rs = ($total_underover_time / 60) * $per_hour;
           if ($id == 0) {
             echo "<p>Please Select Employee First.</p><br>";
             exit();
@@ -144,7 +144,7 @@ hr {
               $time = $newhours.".".$newmins;
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 121;
-              $ou_rs = ($total_underover_time / 60) * round($per_hour);
+              $ou_rs = ($total_underover_time / 60) * $per_hour;
             }else if( ($duty - 3600) >= 39000 ){
               $newhours = floor( $duty / 3600);
               $newmins = floor($duty / 60 % 60);
@@ -152,11 +152,11 @@ hr {
               $time = $newhours.".".$newmins;
               $duty_period = sprintf('%02d:%02d:%02d', $newhours, $newmins, $newsecs);
               $total_underover_time = $total_underover_time + 60;
-              $ou_rs = ($total_underover_time / 60) * round($per_hour);
+              $ou_rs = ($total_underover_time / 60) * $per_hour;
             }else{
               $time = $hours.".".$mins;
             }
-            $pay_by_hour_day = round($time * $per_hour);
+            $pay_by_hour_day = $time * $per_hour;
             //  Update data on Database
             $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses', total_advance_main = total_advance_main + '$total_advance_main' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);

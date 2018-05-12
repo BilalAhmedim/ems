@@ -47,7 +47,8 @@
           <div class="inline">
             <h3>Basic Salary    &nbsp;: <?php echo $row['basic_salary']?></h3>
             <h3>Under/Over Time &nbsp;: <?php echo $row['total_underover_time']/60?></h3>
-            <h3>Total Salary    &nbsp;: <?php echo $row['pay_salary_month']?></h3>
+            <h3>Total Salary    &nbsp;: <?php echo $row['pay_salary_month']?></h3><br>
+            <input type="button" value="Print" onclick="return window.print()">
           </div>
         </div>
       </div>
