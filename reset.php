@@ -55,7 +55,7 @@
         }
         function resetData($no){
           $connect = mysqli_connect("localhost","root","","employee");
-          $sql_update = "UPDATE summary SET days = 0, presence = 0, self_hollyday = 0, hollyday_cut = 0, total_underover_time = 0, ou_rs = 0, pay_salary_month = 0, expenses = 0 WHERE no ='$no'";
+          $sql_update = "UPDATE summary SET days = 0, presence = 0, self_hollyday = 0, hollyday_cut = 0, total_underover_time = 0, ou_rs = 0, pay_salary_month = 0, expenses = 0, advance = 0, pay_salary_month = 0, recovery = 0 WHERE no ='$no'";
           $sql_query_update = mysqli_query($connect, $sql_update);
           if( !$sql_query_update ){
             echo "<h1 style='color: red;'>Error Resting DataBase.</h1>" . mysqli_error($connect);

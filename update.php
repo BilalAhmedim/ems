@@ -90,9 +90,10 @@ hr {
           $timein = $_POST['timein'];
           $timeout = $_POST['timeout'];
           $advance = $_POST['advance'];
+          $recovery = $advance;
           $expenses = $_POST['expenses'];
-          $total_advance_main = $_POST['total_advance_main'];
           $id = $_POST['target'];
+          $total_advance_main = $_POST['total_advance_main'];
           $total = (strtotime($timeout) - strtotime($timein)) - 3600;
           $hours = floor($total / 3600);
           $mins = floor($total / 60 % 60);
@@ -158,7 +159,7 @@ hr {
             }
             $pay_by_hour_day = $time * $per_hour;
             //  Update data on Database
-            $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , advance =advance + '$advance' , expenses = expenses + '$expenses', total_advance_main = total_advance_main + '$total_advance_main' WHERE id = $id";
+            $create = "UPDATE summary SET total_underover_time = total_underover_time + '$total_underover_time', ou_rs = ou_rs + '$ou_rs' ,days = days + 1 , presence = '$presence' , recovery = recovery + '$recovery', advance =advance + '$advance' , expenses = expenses + '$expenses', total_advance_main = total_advance_main + '$total_advance_main' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));
@@ -175,14 +176,15 @@ hr {
             $ontable = "INSERT INTO " . $name . "(pay_salary_month, pay_by_hour_day, basic_salary, ou_rs, days,total_underover_time, per_hour, id, name, duty_period, presence, time_in, time_out, total_time, advance, expenses) 
             VALUE('$pay_salary_month','$pay_by_hour_day','$salary','$ou_rs','1','$total_underover_time','$per_hour','$id','$name','$duty_period','$presence','$timein','$timeout','$totaltime','$advance','$expenses')";
             //  Advance Detuction in main Total Advance
-            $total_advance = DataBase("SELECT advance FROM summary WHERE id = $id",'advance');
-            $deduct_adv = DataBase("SELECT total_advance_main from summary WHERE id = '$id'",'total_advance_main') - $total_advance;
+            $total_recovery = DataBase("SELECT recovery FROM summary WHERE id = $id",'recovery');
+            $deduct_adv = DataBase("SELECT total_advance_main from summary WHERE id = '$id'",'total_advance_main') - $total_recovery;
+            $recovery = 0;
 
             $insert = mysqli_query($connect, $ontable);
             if (! $insert) {
               die("Query Failed " . mysqli_error($connect));
             }
-            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month', total_advance_main = '$deduct_adv' WHERE id = $id";
+            $create = "UPDATE summary SET pay_salary_month = '$pay_salary_month', total_advance_main = '$deduct_adv', recovery = '$recovery' WHERE id = $id";
             $create_result = mysqli_query($connect, $create);
             if (! $create_result) {
               die("Query Failed " . mysqli_error($connect));

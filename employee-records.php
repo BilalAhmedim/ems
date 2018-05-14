@@ -1,7 +1,7 @@
 <?php
   include 'server.php';
   $name = $_GET['name'];
-  
+
   $id = $_GET['id'];
 ?>
 <!DOCTYPE html>

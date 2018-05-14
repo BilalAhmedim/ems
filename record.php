@@ -19,7 +19,7 @@
       width: 98vw;
     }
     table tr > td{
-      padding: 5px 0 5px 0;
+      padding: 7px 0 7px 0;
     }
   </style>
 </head>
@@ -47,15 +47,15 @@
       </tr>
       <?php while($row=mysqli_fetch_array($summary_result) ) { ?>
         <tr onclick="session(this.getAttribute('name'),this.getAttribute('value'))" class="send" name=<?php echo $row['name']?> value=<?php echo $row['id']?> >
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['id']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo str_replace("_"," ",$row['name'])?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['days']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['self_hollyday']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['ou_rs']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['total_advance_main']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['advance']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['expenses']?></a></td>
-          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']?>><?php echo $row['basic_salary']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['id']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo str_replace("_"," ",$row['name'])?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['days']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['self_hollyday']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['ou_rs']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['total_advance_main']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['advance']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['expenses']?></a></td>
+          <td><a href=<?php echo "employee-records.php?name=".$row['name']."&id=".$row['id']."&advance=".$row['advance']?>><?php echo $row['basic_salary']?></a></td>
         </tr>
       <?php }?>
     </table>
