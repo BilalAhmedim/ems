@@ -46,6 +46,7 @@
     <?php
       if(isset($_POST['submit'])){
         function trunc($table){
+          ini_set('max_execution_time', 0);
           $connect = mysqli_connect("localhost","root","","employee");
           $sqli_trunc = "TRUNCATE TABLE ".$table;
           $sql_query = mysqli_query($connect, $sqli_trunc);
@@ -62,7 +63,7 @@
           }
         }
         $connect = mysqli_connect("localhost","root","","employee");
-        $sql = "SELECT no, name FROM summary order by no DESC";
+        $sql = "SELECT no, name FROM summary ORDER BY no DESC";
         $sql_query = mysqli_query($connect, $sql);
         while($row = mysqli_fetch_array($sql_query)){
           resetData($row['no']);
